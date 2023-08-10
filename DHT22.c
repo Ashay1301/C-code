@@ -101,7 +101,8 @@ int main(void)
 	float celsius;
 	float fahrenheit;
 	short checksum; //validate the data.
-
+	FILE *fpt;
+	fpt = fopen("data.csv","a+")
 	// GPIO Initialization
 	if (wiringPiSetupGpio() == -1) //Initialize the GPIO pins using the wiringPi library.
 	{	
@@ -158,6 +159,7 @@ int main(void)
 
 			// Display all data
 			printf("TEMP: %6.2f *C (%6.2f *F) | HUMI: %6.2f %\n\n", celsius, fahrenheit, humidity);
+			fprintf(fpt,"%6.2f , %6.2f %\n", celsius,  humidity); //send the data to the file dara.csv
 			return 0;
 		} //End of the valid checksum check.
 
@@ -174,6 +176,6 @@ int main(void)
 
 		delay(2000);	// Wait for 2 seconds before the next attempt to read data
 	}
-
+	fclose(fpt);
 	return 0;
 }
